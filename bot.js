@@ -3,11 +3,12 @@ const AppDAO = require('./dao')
 const TaskRepository = require('./task_repository')
 const dao = new AppDAO('./database.sqlite3')
 const taskRepo = new TaskRepository(dao)
+const Discord = require('discord.js');
 
 let taskId
 
 var string ="";
-var Discord = require('discord.io');
+//var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var pseudo ="";
