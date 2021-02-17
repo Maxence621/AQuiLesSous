@@ -26,7 +26,7 @@ client.on('message', message => {
 
     if (message.content === '!coucou') {
 
-       message.reply('Bouh! :p:');
+       message.reply('Bouh! :ghost:');
 
        }
 
