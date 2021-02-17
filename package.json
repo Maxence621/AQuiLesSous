@@ -10,7 +10,6 @@
     "sqlite": "^4.0.19",
     "sqlite3": "^5.0.2",
     "winston": "^3.3.3"
-    "discord.js": "11.1.0"
   },
   "start": "node bot.js"
 }
