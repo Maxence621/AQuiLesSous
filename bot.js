@@ -16,7 +16,7 @@ client.on('message', message => {
 
     if (message.content === '!pancakes') {
 
-       message.reply('Tu veux un pancakes ? :pancakes:');
+       message.reply('Tu veux un pancake ? :pancakes:');
 
        }
 
