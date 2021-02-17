@@ -1,25 +1,15 @@
 {
-
-  "name": "Example",
-
-  "description": "Example",
-
-  "version": "0.0.0",
-
+  "name": "greeter-bot",
+  "version": "1.0.0",
+  "description": "Bot qui calcul l'argent que tu dois",
   "main": "bot.js",
-
-  "scripts": {
-
-    "start": "node bot.js"
-
-  },
-
+  "author": "Maxence",
   "dependencies": {
-
-    "discord.js": "11.1.0",
-
-    "request": "2.81.0"
-
-  }
-
+    "bluebird": "^3.7.2",
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "sqlite": "^4.0.19",
+    "sqlite3": "^5.0.2",
+    "winston": "^3.3.3"
+  },
+  "start": "node bot.js"
 }
