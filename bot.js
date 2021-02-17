@@ -14,9 +14,19 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    if (message.content === 'ping') {
+    if (message.content === '!pancakes') {
 
-       message.reply('pong');
+       message.reply('Tu veux un pancakes :pancakes:');
+
+       }
+
+});
+
+client.on('message', message => {
+
+    if (message.content === '!coucou') {
+
+       message.reply('Bouh! :p:');
 
        }
 
