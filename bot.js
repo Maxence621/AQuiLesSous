@@ -48,6 +48,7 @@ client.on('message', message => {
 
     if (message.content === '!afficherDette') {
      string+='> **Voici la liste de tes dettes !**\n ';
+     taskRepo.createTable()
         taskRepo.getAll());
         .then((tasks) => {
           return new Promise((resolve, reject) => {
