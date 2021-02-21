@@ -1,3 +1,4 @@
+/*
 const Promise = require('bluebird')
 const AppDAO = require('./dao')
 const TaskRepository = require('./task_repository')
@@ -7,7 +8,7 @@ let taskId
 var string ="";
 var pseudo ="";
 var sous ="";
-
+*/
 
 
 const Discord = require('discord.js');
@@ -43,6 +44,7 @@ client.on('message', message => {
 
 });
 
+/*
 client.on('message', message => {
 
     if (message.content === '!afficherDette') {
@@ -68,7 +70,7 @@ client.on('message', message => {
        }
 
 });
-
+*/
 
 
 client.on('message', message => {
