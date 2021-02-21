@@ -1,4 +1,3 @@
-/*
 const Promise = require('bluebird')
 const AppDAO = require('./dao')
 const TaskRepository = require('./task_repository')
@@ -8,7 +7,7 @@ let taskId
 var string ="";
 var pseudo ="";
 var sous ="";
-*/
+
 
 
 const Discord = require('discord.js');
@@ -44,33 +43,31 @@ client.on('message', message => {
 
 });
 
-/*
+
 client.on('message', message => {
 
     if (message.content === '!afficherDette') {
      string+='> **Voici la liste de tes dettes !**\n '
+     /*
      taskRepo.createTable()
-        .then(() => taskRepo.getAll())
+        .then(() => taskRepo.getAll());
         .then((tasks) => {
           return new Promise((resolve, reject) => {
             tasks.forEach((task) => {
-                var pseudo = (`${task.name}`)
-                var dette = (`${task.dette}`)
-
-                
-                
+                var pseudo = (`${task.name}`);
+                var dette = (`${task.dette}`);
                 string+='> '+pseudo+'         ***Dette : ***'+dette+'€\n ';
 
 
             })
      
-
+*/
        message.reply(string);
 
        }
 
 });
-*/
+
 
 
 client.on('message', message => {
