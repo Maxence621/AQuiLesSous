@@ -5,8 +5,13 @@
   "description": "Example",
 
   "version": "0.0.0",
+  "engines": {
+    "node": "14.x"
+  },
+  
 
   "main": "bot.js",
+  
 
   "scripts": {
 
