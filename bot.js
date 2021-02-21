@@ -37,18 +37,24 @@ client.on('message', message => {
 
 client.on('message', message => {
 
-    if (message.content === '!afficherDette') {
+    if (message.content === '!ajouterDette') {
      
+     var Donnee = message.split(' ');
+        Auteur = Donnee[1];
+        Dette = Donnee[2];
+        Pseudo = Donnee[3];
+     var idUtilisateur +=1;
      
      fs.readFile('./dette.json', 'utf-8', function(err, data) {
-  if (err) throw err
+       if (err) throw err
 
-  var arrayOfObjects = JSON.parse(data)
-  arrayOfObjects.users.push({
-    auteur: "Noemie",
-    dette: 2900,
-    pseudo: "akityio"
-  })
+     var arrayOfObjects = JSON.parse(data)
+     arrayOfObjects.users.push({
+       id:idUtilisateur,
+       auteur: Auteur,
+       dette: Dette,
+       pseudo: Pseudo
+     })
 
   console.log(arrayOfObjects.users[0])
 
