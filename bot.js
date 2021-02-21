@@ -36,7 +36,12 @@ client.on('message', message => {
         Auteur = Donnee[1];
         Dette = Donnee[2];
         Pseudo = Donnee[3];
-     var idUtilisateur +=1;
+     
+     if (idUtilisateur!=null){
+        idUtilisateur +=1
+      }else{
+        var Utilisateur=0;
+      }
      
      fs.readFile('dette.json', 'utf-8', function(err, data) {
        if (err) throw err
