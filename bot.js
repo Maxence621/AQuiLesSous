@@ -30,14 +30,7 @@ client.on('message', message => {
 
        message.reply('> ***Bonjour toi !*** voila l\'aide que tu m\'a demander :\n > \n > "**!bluehelp**" : Permet de voir les commandes disponibles\n > "**!ajouterDette <Utilisateur> <dette>**" : Permet d\'ajouter une dette\n > "**!afficherDette**" : Permet de voir les dettes à rembourser');
 
-       }
-
-});
-
-
-client.on('message', message => {
-
-    if (message.content === '!ajouterDette') {
+    }else if (message.content === '!ajouterDette') {
      
      var Donnee = message.split(' ');
         Auteur = Donnee[1];
@@ -45,7 +38,7 @@ client.on('message', message => {
         Pseudo = Donnee[3];
      var idUtilisateur +=1;
      
-     fs.readFile('./dette.json', 'utf-8', function(err, data) {
+     fs.readFile('dette.json', 'utf-8', function(err, data) {
        if (err) throw err
 
      var arrayOfObjects = JSON.parse(data)
@@ -58,7 +51,7 @@ client.on('message', message => {
 
   console.log(arrayOfObjects.users[0])
 
-  fs.writeFile('./dette.json', JSON.stringify({arrayOfObjects},null ,3), 'utf-8', function(err) {
+  fs.writeFile('dette.json', JSON.stringify({arrayOfObjects},null ,3), 'utf-8', function(err) {
     if (err) throw err
     console.log('Done!')
   })
@@ -67,6 +60,8 @@ client.on('message', message => {
     }
 
 });
+
+
 
 
 
