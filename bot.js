@@ -47,9 +47,8 @@ client.on('message', message => {
 client.on('message', message => {
 
     if (message.content === '!afficherDette') {
-     string+='> **Voici la liste de tes dettes !**\n '
-     taskRepo.createTable()
-        .then(() => taskRepo.getAll());
+     string+='> **Voici la liste de tes dettes !**\n ';
+        taskRepo.getAll());
         .then((tasks) => {
           return new Promise((resolve, reject) => {
             tasks.forEach((task) => {
