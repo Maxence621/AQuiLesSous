@@ -1,5 +1,8 @@
 const Discord = require('discord.js');
+const fs = require('fs');
 const client = new Discord.Client();
+
+
 
  
 
@@ -35,6 +38,25 @@ client.on('message', message => {
 client.on('message', message => {
 
     if (message.content === '!afficherDette') {
+     
+     
+     fs.readFile('./dette.json', 'utf-8', function(err, data) {
+  if (err) throw err
+
+  var arrayOfObjects = JSON.parse(data)
+  arrayOfObjects.users.push({
+    auteur: "Noemie",
+    dette: 2900,
+    pseudo: "akityio"
+  })
+
+  console.log(arrayOfObjects.users[0])
+
+  fs.writeFile('./dette.json', JSON.stringify({arrayOfObjects},null ,3), 'utf-8', function(err) {
+    if (err) throw err
+    console.log('Done!')
+  })
+})
     
     }
 
