@@ -52,7 +52,7 @@ client.on('message', message => {
     console.log(message.author.id);
     
     var fs = require('fs')
-     fs.readFile('dette.json', 'utf-8', function(err, data) {
+     fs.readFile('./dette.json', 'utf-8', function(err, data) {
        if (err) throw err
 
      var arrayOfObjects = JSON.parse(data);
