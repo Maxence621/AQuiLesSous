@@ -76,7 +76,7 @@ client.on('message', message => {
 
   fs.writeFile('./dette.json', JSON.stringify(arrayOfObjects, null, 2), 'utf-8', function(err) {
     if (err) throw err
-    console.log('Done!')
+    console.log('Done! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
   })
 })
    
@@ -102,11 +102,16 @@ client.on('message', message => {
   
         for (var i = 0; i < Taille; i++) {
              if(IdAuteur == arrayOfObjects.users[i].auteur){
-
+              console.log('arrayOfObjects.auteur[i]');
+              console.log('arrayOfObjects.users[i]');
+              console.log('arrayOfObjects.dette[i]');
               string += "> ***Dettes :*** "+arrayOfObjects.users[i].dette+"\n > ***à remboursé à : ***"+arrayOfObjects.users[i].pseudo+"\n\n ";
              }else{
               console.log("Boucle i :"+i);
               console.log("Taille :"+Taille);
+              console.log('arrayOfObjects.auteur[i]');
+              console.log('arrayOfObjects.users[i]');
+              console.log('arrayOfObjects.dette[i]');
              }
         }
         message.channel.send(string);
