@@ -33,7 +33,7 @@ client.on('message', message => {
 
 });
 
-
+/*
 const prefix = '!'; 
 
 client.on('message', message => {
@@ -119,7 +119,7 @@ client.on('message', message => {
 
 
 
-
+*/
 
 
 
