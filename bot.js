@@ -5,10 +5,10 @@ const bot = new Discord.Client();
 const { Client } = require('pg');
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+	connectionString: 'postgres://fynmngemumdwjd:e64f36d2553e67f1bea2e5291d9b87893a5861cdd538529fba5ae3883c6d4afb@ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/dj4frskvm7g5a',
+	ssl: {
+		rejectUnauthorized: false
+	}
 });
 
 client.connect();
@@ -20,27 +20,14 @@ client.connect();
 
 
 
+bot.login("ODA4MzE1ODM3Mjg1OTI0ODg0.YCEwyQ.jZDyDz89wc7wMtDHMV9bgB0D5zI");
 
 
 
-
- 
 
 bot.on('ready', () => {
 
-    console.log('I am ready!');
-
-});
-
- 
-
-bot.on('message', message => {
-
-    if (message.content === '!pancakes') {
-
-       message.reply('Tu veux un pancake ? :pancakes:');
-
-       }
+	console.log('I am ready!');
 
 });
 
@@ -48,11 +35,23 @@ bot.on('message', message => {
 
 bot.on('message', message => {
 
-    if (message.content === '!test') {
+	if (message.content === '!pancakes') {
 
-       message.reply('oui tu as bien lancé le bot test !');
+		message.reply('Tu veux un pancake ? :pancakes:');
 
-    }
+	}
+
+});
+
+
+
+bot.on('message', message => {
+
+	if (message.content === '!bluehelp') {
+
+		message.reply('oui tu as bien lancé le bot test !');
+
+	}
 
 });
 
@@ -60,33 +59,29 @@ bot.on('message', message => {
 const prefix = '!'; 
 
 bot.on('message', message => {
-  var IdAuteur = message.author.id;
+	var IdAuteur = message.author.id;
 
-  if (!message.content.startsWith(prefix)) return;
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase(); 
+	if (!message.content.startsWith(prefix)) return;
+	const args = message.content.trim().split(/ +/g);
+	const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
-  if (cmd === 'ajouterdette') {
-
-
-		client.connect();
+	if (cmd === 'ajouterdette') {
 		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
 		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
 
 
 		var dette = args[1];
 		var pseudo_dette = args[2];
-		var test=0;
+		var correct0="0";
 
 
-		client.query("SELECT COUNT(pseudo_dette) FROM utilisateur WHERE pseudo_dette='"+pseudo_dette+"' AND auteur='"+IdAuteur+"'"), (err, res) => {
+		
+		client.query("select Count(*) from utilisateur where auteur='"+IdAuteur+"' and pseudo_dette='"+pseudo_dette+"'", (err, res) => {
+			
 			for (let row of res.rows) {
-				test=JSON.stringify(row);
-			}
-
-		}
-		if(test==0){
-			client.query("INSERT INTO utilisateur (auteur, dette, pseudo_dette) VALUES ('"+IdAuteur+"','"+dette+"','"+pseudo_dette+"')", (err, res) => {
+				if(row.count===correct0){
+					console.log(row.count);
+					client.query("INSERT INTO utilisateur (auteur, dette, pseudo_dette) VALUES ('"+IdAuteur+"','"+dette+"','"+pseudo_dette+"')", (err, res) => {
 						if (err){
 							throw err;
 							message.channel.send("une erreur est survenue !");
@@ -99,17 +94,65 @@ bot.on('message', message => {
 
 					});	
 
-		}else{
-			message.channel.send("tu as déja une dette avec cette personne !");
-		}
-		
+					
+				}else{
+					message.channel.send("> vous avez déja une dette avec cette personne, veuillez la modifier a la place ('!bluehelp')");
+					
+				}
+			}
+		});	
+
+
 
 
 
 
 	};
-
 });
+
+
+
+
+
+
+bot.on('message', message => {
+	var IdAuteur = message.author.id;
+
+	if (!message.content.startsWith(prefix)) return;
+	const args = message.content.trim().split(/ +/g);
+	const cmd = args[0].slice(prefix.length).toLowerCase(); 
+
+	if (cmd === 'modifierdette') {
+
+		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
+		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
+
+
+		var dette = args[1];
+		var pseudo_dette = args[2];
+
+
+
+		client.query("UPDATE utilisateur  SET dette = '"+dette+"'  WHERE  auteur='"+IdAuteur+"' AND pseudo_dette='"+pseudo_dette+"'", (err, res) => {
+			if (err){
+				throw err;
+				message.channel.send("une erreur est survenue !");
+				console.log(IdAuteur+","+args[1]+","+args[2]);
+			} 
+			for (let row of res.rows) {
+				console.log(JSON.stringify(row));
+			}
+			message.channel.send("> tu as bien modifier une dette "+"<@"+IdAuteur+"> ! \n");
+
+		});	
+		
+
+
+
+	};
+});
+
+
 
 
 
@@ -117,45 +160,71 @@ bot.on('message', message => {
 
 bot.on('message', message => {
 
-    if (message.content === '!afficherdette') {
-      var fs = require('fs');
-      var IdAuteur = message.author.id;
-      var string= "\n > Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n";
-
-     
-      client.query("SELECT * FROM utilisateur WHERE auteur ='"+IdAuteur+"'", (err, res) => {
-  		if (err){
-  			throw err;
-  			message.channel.send("une erreur est survenue !");
-  			console.log(IdAuteur+","+args[1]+","+args[2]);
-  		} 
-  		for (let row of res.rows) {
-  			string+= " > ***Dette : ***"+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n \n ";
-  		  
-  		}
-  		message.channel.send(string);
-  		client.end();
-	});
+	if (message.content === '!afficherdette') {
+		var IdAuteur = message.author.id;
+		var string= " > Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n";
 
 
-    }
+		client.query("SELECT * FROM utilisateur WHERE auteur ='"+IdAuteur+"'", (err, res) => {
+			
+			if (err){
+
+				message.channel.send("une erreur est survenue !");
+				throw err;
+				console.log(IdAuteur+","+args[1]+","+args[2]);
+			} 
+			for (let row of res.rows) {
+				
+				string+= " > ***Dette : ***"+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n ";
+
+			}
+			message.channel.send(string);
+
+		});
+
+
+	}
 });
-
-
 
 
 
 bot.on('message', message => {
 
-    if (message.content === '!coucou') {
+	if (message.content === '!onBdd') {
+		const client = new Client({
+			connectionString: 'postgres://fynmngemumdwjd:e64f36d2553e67f1bea2e5291d9b87893a5861cdd538529fba5ae3883c6d4afb@ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/dj4frskvm7g5a',
+			ssl: {
+				rejectUnauthorized: false
+			}
+		});
+		client.connect();
 
-       message.reply('Bouh! :ghost:');
+	}
 
-       }
+});
+bot.on('message', message => {
+
+	if (message.content === '!offBdd') {
+
+		
+		client.end();
+	}
 
 });
 
- 
+
+
+bot.on('message', message => {
+
+	if (message.content === '!coucou') {
+
+		message.reply('Bouh! :ghost:');
+
+	}
+
+});
+
+
 
 // THIS  MUST  BE  THIS  WAY
 
