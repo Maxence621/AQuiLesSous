@@ -67,34 +67,47 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
   if (cmd === 'ajouterdette') {
-    if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
-    if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
 
 
-   // console.log(message.author.id);
-   //console.log(IdAuteur);
-
-  	var dette = args[1];
-  	var pseudo_dette = args[2];
+		client.connect();
+		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
+		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
 
 
+		var dette = args[1];
+		var pseudo_dette = args[2];
+		var test=0;
 
 
-     client.query("INSERT INTO utilisateur (auteur, dette, pseudo_dette) VALUES ('"+IdAuteur+"','"+dette+"','"+pseudo_dette+"')", (err, res) => {
-  		if (err){
-  			throw err;
-  			message.channel.send("une erreur est survenue !");
-  			console.log(IdAuteur+","+args[1]+","+args[2]);
-  		} 
-  		for (let row of res.rows) {
-  		  console.log(JSON.stringify(row));
-  		}
-  		client.end();
-	});
+		client.query("SELECT COUNT(pseudo_dette) FROM utilisateur WHERE pseudo_dette='"+pseudo_dette+"' AND auteur='"+IdAuteur+"'"), (err, res) => {
+			for (let row of res.rows) {
+				test=JSON.stringify(row);
+			}
 
-    
-   
-    }
+		}
+		if(test==0){
+			client.query("INSERT INTO utilisateur (auteur, dette, pseudo_dette) VALUES ('"+IdAuteur+"','"+dette+"','"+pseudo_dette+"')", (err, res) => {
+						if (err){
+							throw err;
+							message.channel.send("une erreur est survenue !");
+							console.log(IdAuteur+","+args[1]+","+args[2]);
+						} 
+						for (let row of res.rows) {
+							console.log(JSON.stringify(row));
+						}
+						message.channel.send("> tu as bien ajouté une dette "+"<@"+IdAuteur+"> ! \n > n'hésite pas a vérifié si tu ne l'a pas mis en double : '!afficherdette' ");
+
+					});	
+
+		}else{
+			message.channel.send("tu as déja une dette avec cette personne !");
+		}
+		
+
+
+
+
+	};
 
 });
 
