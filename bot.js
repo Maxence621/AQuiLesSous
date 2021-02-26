@@ -5,7 +5,7 @@ const bot = new Discord.Client();
 const { Client } = require('pg');
 
 const client = new Client({
-	connectionString: 'postgres://fynmngemumdwjd:e64f36d2553e67f1bea2e5291d9b87893a5861cdd538529fba5ae3883c6d4afb@ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/dj4frskvm7g5a',
+	connectionString: process.env.DATABASE_URL,
 	ssl: {
 		rejectUnauthorized: false
 	}
@@ -20,7 +20,7 @@ client.connect();
 
 
 
-bot.login("ODA4MzE1ODM3Mjg1OTI0ODg0.YCEwyQ.jZDyDz89wc7wMtDHMV9bgB0D5zI");
+
 
 
 
@@ -192,7 +192,7 @@ bot.on('message', message => {
 
 	if (message.content === '!onBdd') {
 		const client = new Client({
-			connectionString: 'postgres://fynmngemumdwjd:e64f36d2553e67f1bea2e5291d9b87893a5861cdd538529fba5ae3883c6d4afb@ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/dj4frskvm7g5a',
+			connectionString: process.env.DATABASE_URL,
 			ssl: {
 				rejectUnauthorized: false
 			}
