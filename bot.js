@@ -126,26 +126,37 @@ bot.on('message', message => {
 
 		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
 		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
-
+		var correct1="1";
 
 		var dette = args[1];
 		var pseudo_dette = args[2];
 
 
-
-		client.query("UPDATE utilisateur  SET dette = '"+dette+"'  WHERE  auteur='"+IdAuteur+"' AND pseudo_dette='"+pseudo_dette+"'", (err, res) => {
-			if (err){
-				throw err;
-				message.channel.send("une erreur est survenue !");
-				console.log(IdAuteur+","+args[1]+","+args[2]);
-			} 
+		client.query("select Count(*) from utilisateur where auteur='"+IdAuteur+"' and pseudo_dette='"+pseudo_dette+"'", (err, res) => {
+			
 			for (let row of res.rows) {
-				console.log(JSON.stringify(row));
+				if(row.count===correct1){
+					console.log(row.count);
+					client.query("UPDATE utilisateur  SET dette = '"+dette+"'  WHERE  auteur='"+IdAuteur+"' AND pseudo_dette='"+pseudo_dette+"'", (err, res) => {
+						if (err){
+							throw err;
+							message.channel.send("une erreur est survenue !");
+							console.log(IdAuteur+","+args[1]+","+args[2]);
+						} 
+						for (let row of res.rows) {
+							console.log(JSON.stringify(row));
+						}
+						message.channel.send("> AAAAAAAAAAAAAtu as bien modifier une dette "+"<@"+IdAuteur+"> ! \n");
+
+					});	
+
+				}else{
+					message.channel.send("> AAAAAAAA ");
+					
+				}
 			}
-			message.channel.send("> tu as bien modifier une dette "+"<@"+IdAuteur+"> ! \n");
 
 		});	
-		
 
 
 
