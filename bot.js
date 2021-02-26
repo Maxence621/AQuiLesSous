@@ -1,11 +1,32 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const bot = new Discord.Client();
+
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+client.connect();
+
+
+
+
+
+
+
+
+
+
 
 
  
 
-client.on('ready', () => {
+bot.on('ready', () => {
 
     console.log('I am ready!');
 
@@ -13,7 +34,7 @@ client.on('ready', () => {
 
  
 
-client.on('message', message => {
+bot.on('message', message => {
 
     if (message.content === '!pancakes') {
 
@@ -23,11 +44,13 @@ client.on('message', message => {
 
 });
 
-client.on('message', message => {
 
-    if (message.content === '!bluehelp') {
 
-       message.reply('> ***Bonjour toi !*** voila l\'aide que tu m\'a demander :\n > \n > "**!bluehelp**" : Permet de voir les commandes disponibles\n > "**!ajouterDette <dette> <Utilisateur> **" : Permet d\'ajouter une dette\n > "**!afficherDette**" : Permet de voir les dettes à rembourser');
+bot.on('message', message => {
+
+    if (message.content === '!test') {
+
+       message.reply('oui tu as bien lancé le bot test !');
 
     }
 
@@ -36,8 +59,7 @@ client.on('message', message => {
 
 const prefix = '!'; 
 
-client.on('message', message => {
-  var fs = require('fs');
+bot.on('message', message => {
   var IdAuteur = message.author.id;
 
   if (!message.content.startsWith(prefix)) return;
@@ -49,36 +71,28 @@ client.on('message', message => {
     if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
 
 
-    console.log(message.author.id);
+   // console.log(message.author.id);
+   //console.log(IdAuteur);
+
+  	var dette = args[1];
+  	var pseudo_dette = args[2];
+
+
+
+
+     client.query("INSERT INTO utilisateur (auteur, dette, pseudo_dette) VALUES ('"+IdAuteur+"','"+dette+"','"+pseudo_dette+"')", (err, res) => {
+  		if (err){
+  			throw err;
+  			message.channel.send("une erreur est survenue !");
+  			console.log(IdAuteur+","+args[1]+","+args[2]);
+  		} 
+  		for (let row of res.rows) {
+  		  console.log(JSON.stringify(row));
+  		}
+  		client.end();
+	});
+
     
-    var fs = require('fs')
-     fs.readFile('dette.json', 'utf-8', function(err, data) {
-       if (err) throw err
-
-     var arrayOfObjects = JSON.parse(data);
-  var Taille = Object.keys(arrayOfObjects.users).length;
-     arrayOfObjects.users.push({
-       auteur: IdAuteur,
-       dette: args[1],
-       pseudo: args[2]
-     })
-
-     
-     if(Taille==Object.keys(arrayOfObjects.users).length){
-      message.channel.send("une Erreur est survenue, veuillez réessayer ! ");
-     }else{
-      message.channel.send("Tu as bien ajouté cette dette !");
-     }
-
-
-    
-
-
-  fs.writeFile('dette.json', JSON.stringify(arrayOfObjects, null, 2), 'utf-8', function(err) {
-    if (err) throw err
-    console.log('Done! ')
-  })
-})
    
     }
 
@@ -88,31 +102,29 @@ client.on('message', message => {
 
 
 
-client.on('message', message => {
+bot.on('message', message => {
 
     if (message.content === '!afficherdette') {
       var fs = require('fs');
       var IdAuteur = message.author.id;
-      var string= "> Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n";
+      var string= " > Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n";
 
-       fs.readFile('dette.json', 'utf-8', function(err, data) {
-       if (err) throw err
-      var arrayOfObjects = JSON.parse(data);
-      var Taille = Object.keys(arrayOfObjects.users).length;
-  
-        for (var i = 0; i < Taille; i++) {
-             if(IdAuteur == arrayOfObjects.users[i].auteur){
-              console.log('boucle i : '+ i);
-              string += "> ***Dettes :*** "+arrayOfObjects.users[i].dette+"\n > ***à remboursé à : ***"+arrayOfObjects.users[i].pseudo+"\n\n ";
-             }else{
-              console.log("Boucle i :"+i);
-              console.log("Taille :"+Taille);
-             
-             }
-        }
-        message.channel.send(string);
-        
-       })
+     
+      client.query("SELECT * FROM utilisateur WHERE auteur ='"+IdAuteur+"'", (err, res) => {
+  		if (err){
+  			throw err;
+  			message.channel.send("une erreur est survenue !");
+  			console.log(IdAuteur+","+args[1]+","+args[2]);
+  		} 
+  		for (let row of res.rows) {
+  			string+= " > ***Dette : ***"+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n \n ";
+  		  
+  		}
+  		message.channel.send(JSON.stringify(string));
+  		client.end();
+	});
+
+
     }
 });
 
@@ -120,7 +132,7 @@ client.on('message', message => {
 
 
 
-client.on('message', message => {
+bot.on('message', message => {
 
     if (message.content === '!coucou') {
 
@@ -134,4 +146,4 @@ client.on('message', message => {
 
 // THIS  MUST  BE  THIS  WAY
 
-client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
+bot.login(process.env.BOT_TOKEN);//BOT_TOKEN is the bot Secret
