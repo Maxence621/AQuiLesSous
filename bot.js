@@ -107,7 +107,7 @@ bot.on('message', message => {
     if (message.content === '!afficherdette') {
       var fs = require('fs');
       var IdAuteur = message.author.id;
-      var string= " > Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n";
+      var string= "\n > Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n";
 
      
       client.query("SELECT * FROM utilisateur WHERE auteur ='"+IdAuteur+"'", (err, res) => {
@@ -120,7 +120,7 @@ bot.on('message', message => {
   			string+= " > ***Dette : ***"+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n \n ";
   		  
   		}
-  		message.channel.send(JSON.stringify(string));
+  		message.channel.send(string);
   		client.end();
 	});
 
