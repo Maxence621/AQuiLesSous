@@ -198,7 +198,7 @@ bot.on('message', message => {
 });
 
 
-
+/*
 bot.on('message', message => {
 
 	if (message.content === '!onBdd') {
@@ -213,6 +213,7 @@ bot.on('message', message => {
 	}
 
 });
+
 bot.on('message', message => {
 
 	if (message.content === '!offBdd') {
@@ -222,7 +223,7 @@ bot.on('message', message => {
 	}
 
 });
-
+*/
 
 
 bot.on('message', message => {
