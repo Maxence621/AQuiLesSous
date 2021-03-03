@@ -19,13 +19,6 @@ client.connect();
 
 
 
-bot.user.setPresence({
-    status: 'online',
-    activity: {
-        name: 'with depression',
-        type: 'PLAYING',
-    }
-})
 
 
 
@@ -33,9 +26,6 @@ bot.user.setPresence({
 
 
 bot.on('ready', () => {
-
-
-	
 	console.log('I am ready!');
 });
 
