@@ -33,7 +33,7 @@ bot.on('ready', () => {
         status: "online",  //You can show online, idle....
         game: {
             name: "Utilise !bluehelp",  //The message shown
-            type: "PLAYING" //PLAYING: WATCHING: LISTENING: STREAMING:
+            type: "idle" //PLAYING: WATCHING: LISTENING: STREAMING:
         }
     });
 });
