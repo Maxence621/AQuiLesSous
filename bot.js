@@ -27,15 +27,8 @@ client.connect();
 
 
 bot.on('ready', () => {
-
+bot.user.setStatus('online', '!bluehelp') 
 	console.log('I am ready!');
-	bot.user.setPresence({
-        status: "online",  //You can show online, idle....
-        game: {
-            name: "Utilise !bluehelp",  //The message shown
-            type: "idle" //PLAYING: WATCHING: LISTENING: STREAMING:
-        }
-    });
 });
 
 
