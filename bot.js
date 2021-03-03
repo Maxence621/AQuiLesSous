@@ -19,7 +19,13 @@ client.connect();
 
 
 
-
+bot.user.setPresence({
+    status: 'online',
+    activity: {
+        name: 'with depression',
+        type: 'PLAYING',
+    }
+})
 
 
 
@@ -49,7 +55,7 @@ bot.on('message', message => {
 
 	if (message.content === '!bluehelp') {
 
-		message.reply('salut ! voici la liste de mes commandes : \n\n > "***!afficherdette***" : Affiche une liste de tes dettes personnelles \n > "***!ajouterdette <dette> <pseudo_du_joueur_a_rembourser>***" : Ajoute une dette dûe a un joueur \n > "***!modifierdette <nouvelle_dette> <pseudo_du_joueur_a_rembourser>***" : modifie la dette choisie avec le nouveau montant \n > "***!supprimerdette <pseudo_du_joueur>***" : supprime la dette choisie');
+		message.reply('salut ! voici la liste de mes commandes : \n\n > "***!afficherdette***" : Affiche une liste de tes dettes personnelles \n > "***!ajouterdette <dette> <pseudo_du_joeur_a_rembourser>***" : Ajoute une dette dûe a un joueur \n > "***!modifierdette <nouvelle_dette> <pseudo_du_joueur_a_rembourser>***" : modifie la dette choisie avec le nouveau montant \n > "***!supprimerdette <pseudo_du_joueur>***" : supprime la dette choisie');
 
 	}
 
