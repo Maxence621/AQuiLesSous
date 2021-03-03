@@ -27,6 +27,11 @@ client.connect();
 
 bot.on('ready', () => {
 	console.log('I am ready!');
+	
+bot.user.setPresence({ activity: { name: '!bluehelp' }, status: 'online' })
+  .then(console.log)
+  .catch(console.error)
+	
 });
 
 bot.on('message', message => {
