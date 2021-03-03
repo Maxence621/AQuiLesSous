@@ -156,7 +156,7 @@ bot.on('message', message => {
 						for (let row of res.rows) {
 							console.log(JSON.stringify(row));
 						}
-						message.channel.send("> tu as bien supprimé une dette "+"<@"+IdAuteur+"> ! \n >");
+						message.channel.send("> tu as bien supprimé une dette "+"<@"+IdAuteur+"> ! \n ");
 
 					});	
 
