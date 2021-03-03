@@ -27,10 +27,18 @@ client.connect();
 
 
 bot.on('ready', () => {
-bot.user.setStatus('online', '!bluehelp') 
+
+	bot.user.setActivity("!bluehelp", {
+ 		 type: "PLAYING"
+	});
+
+	
 	console.log('I am ready!');
 });
 
+bot.user.setActivity("!bluehelp", {
+  type: "PLAYING"
+});
 
 
 bot.on('message', message => {
