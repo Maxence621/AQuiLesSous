@@ -67,8 +67,7 @@ bot.on('message', message => {
 	const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
 	if (cmd === 'ajouterdette') {
-		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
-		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
+		if (!args[2]) return message.reply('Veuillez saisir 2 arguments ! \n > "!ajouterdette <Dette> <Pseudo>"');
 
 
 		var dette = args[1];
