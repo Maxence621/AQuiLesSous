@@ -211,9 +211,8 @@ bot.on('message', message => {
 		
 		var correct0="0";
 		
-		if( IdAuteur == '521458589143924736' ){
 			
-		//if( IdAuteur == '285026914135965709' ){
+		if( IdAuteur == '285026914135965709' ||  IdAuteur == '521458589143924736'  ){ // Identifiant Noemie || Maxence
 			client.query("select Count(*) from utilisateur where auteur='"+pseudo_dette+"'", (err, res) => {
 				for (let row of res.rows) {
 					
@@ -222,7 +221,7 @@ bot.on('message', message => {
 							var string = " > ***Voici les dettes du joueur*** <@"+pseudo_dette+"> \n ";
 							for (let row of res.rows) {
 				
-								string+= " > ***Dette :*** "+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n";
+								string+= " > ***Dette :*** "+JSON.stringify(row.dette)+" ***Joueur à rembourser : ***"+JSON.stringify(row.pseudo_dette)+" \n";
 
 							}
 							message.channel.send(string);
@@ -355,7 +354,7 @@ bot.on('message', message => {
 			} 
 			for (let row of res.rows) {
 				
-				string+= " > ***Dette : ***"+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n ";
+				string+= " > ***Dette : ***"+JSON.stringify(row.dette)+" ***Joueur à rembourser : ***"+JSON.stringify(row.pseudo_dette)+" \n ";
 
 			}
 			message.channel.send(string);
