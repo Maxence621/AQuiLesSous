@@ -210,14 +210,16 @@ bot.on('message', message => {
 		var pseudo_dette = pseudo_dette1.substring(3, pseudo_dette1.length-1);
 		
 		var correct0="0";
+		
+		if( IdAuteur == '521458589143924736' ){
 			
-		if( IdAuteur == '285026914135965709' ){
+		//if( IdAuteur == '285026914135965709' ){
 			client.query("select Count(*) from utilisateur where auteur='"+pseudo_dette+"'", (err, res) => {
 				for (let row of res.rows) {
 					
 						client.query("select * from utilisateur where auteur='"+pseudo_dette+"'", (err, res) => {
 							console.log(pseudo_dette);
-							var string = " > ***Voici les dettes du joueur <@"+pseudo_dette+">*** \n ";
+							var string = " > ***Voici les dettes du joueur*** <@"+pseudo_dette+"> \n ";
 							for (let row of res.rows) {
 				
 								string+= " > ***Dette :*** "+JSON.stringify(row.dette)+" ***Joueur a remboursé : ***"+JSON.stringify(row.pseudo_dette)+" \n";
