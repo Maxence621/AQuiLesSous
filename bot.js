@@ -46,6 +46,22 @@ bot.on('message', message => {
 
 
 
+
+
+bot.on('message', message => {
+
+	if (message.content === '!quiafaitlespancakes') {
+		message.reply('Noemie a fait les pancakes, et avec amour :pancakes: :heart:');
+	}
+
+});
+
+
+
+
+
+
+
 bot.on('message', message => {
 
 	if (message.content === '!bluehelp') {
