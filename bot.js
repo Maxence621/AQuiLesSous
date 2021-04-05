@@ -84,19 +84,19 @@ bot.on('message', message => {
 					client.query("INSERT INTO utilisateur (auteur, dette, pseudo_dette) VALUES ('"+IdAuteur+"','"+dette+"','"+pseudo_dette+"')", (err, res) => {
 						if (err){
 							throw err;
-							message.channel.send("une erreur est survenue !");
+							message.channel.send("Une erreur est survenue !");
 							console.log(IdAuteur+","+args[1]+","+args[2]);
 						} 
 						for (let row of res.rows) {
 							console.log(JSON.stringify(row));
 						}
-						message.channel.send("> tu as bien ajouté une dette "+"<@"+IdAuteur+"> ! \n > n'hésite pas a vérifié si tu ne l'a pas mis en double : '!afficherdette' ");
+						message.channel.send("> tu as bien ajouté une dette "+"<@"+IdAuteur+"> ! \n > N'hésite pas à vérifier si tu ne l'as pas mis en double : '!afficherdette' ");
 
 					});	
 
 					
 				}else{
-					message.channel.send("> vous avez déja une dette avec cette personne, veuillez la modifier a la place ('!bluehelp') ");
+						message.channel.send("> Vous avez déja une dette avec cette personne, veuillez la modifier à la place ('!bluehelp') ");
 					
 				}
 			}
@@ -155,7 +155,7 @@ bot.on('message', message => {
 						for (let row of res.rows) {
 							console.log(JSON.stringify(row));
 						}
-						message.channel.send("> tu as bien supprimé une dette "+"<@"+IdAuteur+"> ! \n ");
+						message.channel.send("> Tu as bien supprimé une dette "+"<@"+IdAuteur+"> ! \n ");
 
 					});	
 
@@ -202,7 +202,7 @@ bot.on('message', message => {
 
 	if (cmd === 'voirdette') {
 		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
-		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!voirdette <Pseudo>" ');
+		if (args[4]) return message.reply('\n > Tu as mis trop d\'arguments !\n > "!voirdette <Pseudo>" ');
 
 
 		var pseudo_dette1 = args[1];
@@ -292,7 +292,7 @@ bot.on('message', message => {
 	if (cmd === 'modifierdette') {
 
 		if (!args[1]) return message.reply('Veuillez ajouter des arguments !');
-		if (args[4]) return message.reply('\n > Tu a mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
+		if (args[4]) return message.reply('\n > Tu as mis trop d\'arguments !\n > "!ajouterdette <Dette> <Pseudo>" ');
 		var correct1="1";
 
 		var dette = args[1];
@@ -313,12 +313,12 @@ bot.on('message', message => {
 						for (let row of res.rows) {
 							console.log(JSON.stringify(row));
 						}
-						message.channel.send("> tu as bien modifier une dette "+"<@"+IdAuteur+"> ! \n ");
+						message.channel.send("> Tu as bien modifié une dette "+"<@"+IdAuteur+"> ! \n ");
 
 					});	
 
 				}else{
-					message.channel.send("> Il y a une erreur, le pseudo de ta dette dois etre mal écris ! ");
+					message.channel.send("> Il y a une erreur, le pseudo de ta dette doit être mal écrit ! ");
 					
 				}
 			}
@@ -340,7 +340,7 @@ bot.on('message', message => {
 
 	if (message.content === '!afficherdette') {
 		var IdAuteur = message.author.id;
-		var string= " > Voici la liste de tes dette "+"<@"+IdAuteur+"> ! \n ";
+		var string= " > Voici la liste de tes dettes "+"<@"+IdAuteur+"> ! \n ";
 
 
 		client.query("SELECT * FROM utilisateur WHERE auteur ='"+IdAuteur+"'", (err, res) => {
