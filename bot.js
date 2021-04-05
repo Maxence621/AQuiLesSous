@@ -206,15 +206,17 @@ bot.on('message', message => {
 
 
 		var pseudo_dette1 = args[1];
-		var mobile ="!"
+		var ordinateur = "<@!";
+		var commencePar = pseudo_dette1.indexOf(ordinateur);
 		
-		if(pseudo_dette1.substring(2,3)==mobile{
-		   var pseudo_dette = pseudo_dette1.substring(3, pseudo_dette1.length-1);
-		   }else{
+		if(commencePar==-1){
 			var pseudo_dette = pseudo_dette1.substring(2, pseudo_dette1.length-1);
-		   }
+		}else{
+			var pseudo_dette = pseudo_dette1.substring(3, pseudo_dette1.length-1);
+		}
 		
-		
+		//var pseudo_dette = pseudo_dette1.substring(3, pseudo_dette1.length-1);
+
 		var correct0="0";
 		
 			
